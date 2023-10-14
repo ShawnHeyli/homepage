@@ -1,0 +1,52 @@
+---
+import Card from "@components/Card.astro";
+import { getCollection } from "astro:content";
+import Hr from "@components/Hr.astro";
+
+import "@styles/global.css";
+import BlogLayout from "@layouts/BlogLayout.astro";
+import type { CollectionEntry } from "astro:content";
+import { featuredPostSlugs } from "src/consts";
+
+const recentPosts = (await getCollection("blog"))
+  .sort((a, b) => {
+    return b.data.pubDate.getTime() - a.data.pubDate.getTime();
+  })
+  .splice(0, 3);
+
+const featuredPosts = (await getCollection("blog")).filter((post) => {
+  console.log(post.slug);
+  console.log(featuredPostSlugs.includes(post.slug));
+
+  return featuredPostSlugs.includes(post.slug);
+});
+---
+
+<BlogLayout title="Blog">
+  <section>
+    <h2>Featured posts</h2>
+    {
+      featuredPosts.map((post) => {
+        return <Card post={post} />;
+      })
+    }
+  </section>
+  <Hr />
+  <section>
+    <h2>Recent posts</h2>
+
+    {
+      recentPosts.map((post) => {
+        return <Card post={post} />;
+      })
+    }
+  </section>
+  <a href="/blog/1" class="flex items-center justify-center gap-2">
+    <span>All posts</span>
+    <svg xmlns="http://www.w3.org/2000/svg"
+      ><path
+        d="M6.707 17.707 12.414 12l-5.707-5.707-1.414 1.414L9.586 12 5.293 16.293z"
+      ></path></svg
+    >
+  </a>
+</BlogLayout>

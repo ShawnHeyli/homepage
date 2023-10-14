@@ -1,0 +1,26 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+
+export interface Props {
+  favicon?: string;
+  title?: string;
+  activeNav?: "posts" | "tags" | "";
+  class?: string;
+}
+const {
+  favicon = "/favicon.svg",
+  title = "Hilan's blog",
+  activeNav = "",
+  class: className,
+} = Astro.props;
+---
+
+<BaseLayout title={title} favicon={favicon}>
+  <Header activeNav={activeNav} />
+  <main class:list={["mb-auto h-max px-4", className]}>
+    <slot />
+  </main>
+  <Footer />
+</BaseLayout>

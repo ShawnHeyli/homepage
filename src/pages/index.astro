@@ -1,0 +1,90 @@
+---
+import Highlight from "@components/Highlight.astro";
+import Navbar from "@components/Navbar.astro";
+
+function calculateAge() {
+  const birthday = new Date("2001-08-02");
+  const ageDifMs = Date.now() - birthday.getTime();
+  const ageDate = new Date(ageDifMs);
+  return Math.abs(ageDate.getUTCFullYear() - 1970);
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+
+  <body class="overflow-x-hidden bg-black text-white">
+    <section
+      class="h-screen w-screen bg-[url('/background.avif')] bg-cover bg-local bg-center"
+    >
+      <div
+        slot="landingScreen"
+        class="flex h-screen flex-col items-center backdrop-brightness-[25%] backdrop-hue-rotate-30 backdrop-saturate-150"
+      >
+        <div class="flex h-full w-full flex-col items-center justify-center">
+          <Navbar />
+          <h1
+            class="font-headline mt-8 text-center text-5xl font-bold md:text-8xl"
+          >
+            Hey,<span class="animation">ヾ</span>(•ω•) I'm
+            <br />
+            <Highlight headline>Hilan Meyran</Highlight>
+          </h1>
+          <h2 class="mt-4 text-center text-xl font-bold md:mt-12 md:text-2xl">
+            I am a {calculateAge()} year old cybersecurity engineer & software
+            enthusiast
+          </h2>
+          <div class="mt-8 text-center">
+            <span>You can get in touch with me at</span>
+            <Highlight hoverEffect>
+              <a class="underline" href="mailto:hilanmeyran@proton.me"
+                >hilanmeyran@proton.me</a
+              >
+            </Highlight>
+          </div>
+        </div>
+      </div>
+
+      <style>
+        span.animation {
+          display: inline-flex;
+          animation: infinite 3s linear wave;
+          transform-origin: 70% 70%; /* Pivot around the bottom-left palm */
+        }
+
+        @keyframes wave {
+          0% {
+            transform: rotate(0deg);
+          }
+          10% {
+            transform: rotate(14deg);
+          } /* The following five values can be played with to make the waving more or less extreme */
+          20% {
+            transform: rotate(-8deg);
+          }
+          30% {
+            transform: rotate(14deg);
+          }
+          40% {
+            transform: rotate(-4deg);
+          }
+          50% {
+            transform: rotate(10deg);
+          }
+          60% {
+            transform: rotate(0deg);
+          } /* Reset for the last half to pause */
+          100% {
+            transform: rotate(0deg);
+          }
+        }
+      </style>
+    </section>
+  </body>
+</html>

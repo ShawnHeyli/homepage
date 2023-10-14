@@ -1,0 +1,38 @@
+---
+import BlogLayout from "@layouts/BlogLayout.astro";
+
+import "@styles/global.css";
+import "@styles/post.css";
+import { getCollection, type CollectionEntry } from "astro:content";
+
+interface HashTable<T> {
+  [key: string]: T;
+}
+
+const posts: Array<CollectionEntry<"blog">> = await getCollection("blog");
+
+// hashtable, key is tag, value is number of posts using the tag
+const tags: HashTable<number> = posts.reduce((acc, post) => {
+  post.data.tags.forEach(tag => {
+    acc[tag] ? acc[tag]++ : (acc[tag] = 1);
+  });
+  return acc;
+}, {});
+---
+
+<BlogLayout>
+  <section class="mb-6 mt-8 flex flex-col gap-2">
+    <p class="font-mono">Home > Tags</p>
+    <h2>Tags</h2>
+    <p class="italic">All the tags used in the posts.</p>
+  </section>
+  <section class="flex gap-4 flex-wrap">
+    {
+      Object.keys(tags).map(tag => (
+        <a href=`/blog/tags/${tag}` class="transition-all duration-75 ease-in-out flex flex-row gap-2 border dark:text-muted-dark border-accent-dark hover:dark:text-text-dark hover:dark:bg-accent-dark border-dashed rounded px-2 pb-1">
+          <p class="font-mono decoration-dashed hover:underline">{tag}#{tags[tag]}</p>
+        </a>
+      ))
+    }
+  </section>
+</BlogLayout>
