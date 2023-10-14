@@ -6,6 +6,10 @@ import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
+  redirects: {
+    "/rss": "/rss.xml",
+    "/feed": "/rss.xml",
+  },
   site: "https://defaultmodel.xyz",
   integrations: [mdx(), sitemap(), tailwind()],
 });
