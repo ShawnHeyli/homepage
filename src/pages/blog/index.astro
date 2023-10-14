@@ -15,9 +15,6 @@ const recentPosts = (await getCollection("blog"))
   .splice(0, 3);
 
 const featuredPosts = (await getCollection("blog")).filter((post) => {
-  console.log(post.slug);
-  console.log(featuredPostSlugs.includes(post.slug));
-
   return featuredPostSlugs.includes(post.slug);
 });
 ---
