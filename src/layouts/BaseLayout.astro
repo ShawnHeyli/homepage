@@ -1,41 +1,9 @@
 ---
-export interface Props {
-  favicon?: string;
-  title: string;
-}
-const { favicon = "/favicon.svg", title } = Astro.props;
+import Head from "@components/Head.astro";
+const { title = "Hilan's Blog" } = Astro.props;
 ---
 
-<html lang="en" class="dark">
-  <head>
-    <meta charset="utf-8" />
-    <title>{title}</title>
-    <link rel="icon" type="image/svg+xml" href={favicon} />
-    <link rel="sitemap" href="/sitemap-index.xml" />
-  </head>
-  <body
-    class="mx-auto flex min-h-screen max-w-3xl flex-col bg-fill font-sans text-text dark:bg-fill-dark dark:text-text-dark"
-  >
-    <slot />
-  </body>
+<html title={title} lang="en" class="dark">
+  <Head />
+  <slot />
 </html>
-
-<script is:inline lang="ts">
-const theme = (() => {
-  if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-    return localStorage.getItem("theme");
-  }
-  if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-    return "dark";
-  }
-  return "light";
-})();
-
-if (theme === "light") {
-  document.documentElement.classList.remove("dark");
-} else {
-  document.documentElement.classList.add("dark");
-}
-
-window.localStorage.setItem("theme", theme);
-</script>

@@ -1,6 +1,7 @@
 ---
 import Highlight from "@components/Highlight.astro";
 import Navbar from "@components/Navbar.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
 
 function calculateAge() {
   const birthday = new Date("2001-08-02");
@@ -10,16 +11,8 @@ function calculateAge() {
 }
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-  </head>
-
-  <body class="overflow-x-hidden bg-black text-white">
+<BaseLayout title="Hilan's Homepage">
+  <main class="overflow-x-hidden bg-black text-white">
     <section
       class="h-screen w-screen bg-[url('/background.avif')] bg-cover bg-local bg-center"
     >
@@ -50,41 +43,41 @@ function calculateAge() {
           </div>
         </div>
       </div>
-
-      <style>
-        span.animation {
-          display: inline-flex;
-          animation: infinite 3s linear wave;
-          transform-origin: 70% 70%; /* Pivot around the bottom-left palm */
-        }
-
-        @keyframes wave {
-          0% {
-            transform: rotate(0deg);
-          }
-          10% {
-            transform: rotate(14deg);
-          } /* The following five values can be played with to make the waving more or less extreme */
-          20% {
-            transform: rotate(-8deg);
-          }
-          30% {
-            transform: rotate(14deg);
-          }
-          40% {
-            transform: rotate(-4deg);
-          }
-          50% {
-            transform: rotate(10deg);
-          }
-          60% {
-            transform: rotate(0deg);
-          } /* Reset for the last half to pause */
-          100% {
-            transform: rotate(0deg);
-          }
-        }
-      </style>
     </section>
-  </body>
-</html>
+  </main>
+</BaseLayout>
+
+<style>
+  span.animation {
+    display: inline-flex;
+    animation: infinite 3s linear wave;
+    transform-origin: 70% 70%; /* Pivot around the bottom-left palm */
+  }
+
+  @keyframes wave {
+    0% {
+      transform: rotate(0deg);
+    }
+    10% {
+      transform: rotate(14deg);
+    } /* The following five values can be played with to make the waving more or less extreme */
+    20% {
+      transform: rotate(-8deg);
+    }
+    30% {
+      transform: rotate(14deg);
+    }
+    40% {
+      transform: rotate(-4deg);
+    }
+    50% {
+      transform: rotate(10deg);
+    }
+    60% {
+      transform: rotate(0deg);
+    } /* Reset for the last half to pause */
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+</style>
