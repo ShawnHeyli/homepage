@@ -1,15 +1,19 @@
 ---
-import BlogLayout from "@layouts/BlogLayout.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
 
 import "@styles/global.css";
-import "@styles/post.css";
 ---
 
-<BlogLayout title="404 Not found" class="my-auto">
-  <div class="mx-auto flex flex-col items-center justify-center">
-    <h1 aria-label="404 Not Found" class="text-8xl">404</h1>
-    <span aria-hidden="true" class="text-xl">¯\_(ツ)_/¯</span>
-    <p class="font-mono text-lg">Page Not Found</p>
-    <a href="/blog" class="font-mono text-lg"> Go back home</a>
-  </div>
-</BlogLayout>
+<BaseLayout>
+  <main class="bg-[url('/background.avif')] bg-cover bg-local bg-center">
+    <div
+      class="mx-auto my-auto justify-center backdrop-brightness-[25%] backdrop-hue-rotate-30 backdrop-saturate-150 w-screen h-screen flex flex-col items-center"
+    >
+      <h1 aria-label="404 Not Found" class="text-9xl">404</h1>
+      <span aria-hidden="true" class="text-2xl text-muted-dark">¯\_(ツ)_/¯</span
+      >
+      <p class="font-mono text-xl text-muted-dark">Page Not Found</p>
+      <a href="/" class="font-mono text-xl">Go back home</a>
+    </div>
+  </main>
+</BaseLayout>
