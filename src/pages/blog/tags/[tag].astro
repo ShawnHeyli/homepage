@@ -47,10 +47,12 @@ const firstLetterUppercase = (str: string) => {
 };
 ---
 
-<BlogLayout title="Hilan's blog posts" activeNav="posts">
+<BlogLayout title="Hilan's blog posts" activeNav="tags">
   <section class="mb-6 mt-8 flex flex-col gap-2">
-    <p class="font-mono">
-      Home > Tags > {firstLetterUppercase(tag)}
+    <p class="font-mono font-bold">
+      <a href="/blog" class="text-text dark:text-text-dark">Home</a> >
+      <a href="/blog/tags" class="text-text dark:text-text-dark">Tags</a> >
+      {firstLetterUppercase(tag)}
     </p>
     <h2>Posts</h2>
     <p class="italic">All the articles I've posted.</p>

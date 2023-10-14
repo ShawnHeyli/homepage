@@ -20,9 +20,13 @@ const tags: HashTable<number> = posts.reduce((acc, post) => {
 }, {});
 ---
 
-<BlogLayout>
+<BlogLayout activeNav="tags">
   <section class="mb-6 mt-8 flex flex-col gap-2">
-    <p class="font-mono">Home > Tags</p>
+    <p class="font-mono font-bold">
+    <a href="/blog" class="text-text dark:text-text-dark">Home</a> 
+    > 
+    <a href="/blog/tags" class="text-text dark:text-text-dark">Tags</a>
+    </p>
     <h2>Tags</h2>
     <p class="italic">All the tags used in the posts.</p>
   </section>
