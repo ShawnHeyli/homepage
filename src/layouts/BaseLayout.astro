@@ -1,9 +1,9 @@
 ---
 import Head from "@components/Head.astro";
-const { title = "Hilan's Blog" } = Astro.props;
+const { title = "Hilan's Blog", favicon = "/favicon.svg" } = Astro.props;
 ---
 
-<html title={title} lang="en" class="dark">
-  <Head />
+<html lang="en" class="dark">
+  <Head title={title} favicon={favicon} />
   <slot />
 </html>
