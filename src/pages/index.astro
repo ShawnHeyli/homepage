@@ -1,83 +1,58 @@
 ---
-import Highlight from "@components/Highlight.astro";
-import Navbar from "@components/Navbar.astro";
-import BaseLayout from "@layouts/BaseLayout.astro";
+import { SITE_TITLE, SITE_TAGLINE, SITE_DESCRIPTION } from '../consts';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import Ava from '@src/assets/img/ava.avif';
+import Prose from '../components/Prose.astro';
+import { projects } from './projects/projects';
+import ProjectList from '../components/ProjectList.astro'
+import PostItem from '../components/PostItem.astro';
 
-function calculateAge() {
-  const birthday = new Date("2001-08-02");
-  const ageDifMs = Date.now() - birthday.getTime();
-  const ageDate = new Date(ageDifMs);
-  return Math.abs(ageDate.getUTCFullYear() - 1970);
-}
+type BlogPost = CollectionEntry<'blog'>;
+
+const top6Projects = projects.slice(0, 6);
+const posts = (await getCollection('blog')).sort((a: BlogPost, b: BlogPost) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 5);
 ---
 
-<BaseLayout title="Hilan's Homepage">
-  <main class="overflow-x-hidden bg-black text-white">
-    <section
-      class="h-screen w-screen bg-[url('/background.avif')] bg-cover bg-local bg-center"
-    >
-      <div
-        slot="landingScreen"
-        class="flex h-screen flex-col items-center backdrop-brightness-[25%] backdrop-hue-rotate-30 backdrop-saturate-150"
-      >
-        <div class="flex h-full w-full flex-col items-center justify-center">
-          <Navbar />
-          <h1
-            class="font-headline mt-8 text-center text-5xl font-bold md:text-8xl"
-          >
-            Hey,<span class="animation">ヾ</span>(•ω•) I'm
-            <br />
-            <Highlight headline>Hilan Meyran</Highlight>
-          </h1>
-          <h2 class="mt-4 text-center text-xl font-bold md:mt-12 md:text-2xl">
-            I am a {calculateAge()} years old cybersecurity engineer & software
-            enthusiast
-          </h2>
-          <div class="mt-8 text-center">
-            <span>You can get in touch with me at</span>
-            <Highlight hoverEffect>
-              <a class="underline" href="mailto:hilanmeyran@proton.me"
-                >hilanmeyran@proton.me</a
-              >
-            </Highlight>
+<BaseLayout title={SITE_TITLE + ' - ' + SITE_TAGLINE} description={SITE_DESCRIPTION}>
+	<div class='container'>
+		<div class='w-full md:flex md:items-center gap-16 mb-10'>
+      <div class="text-pretty leading-9">
+        <h1 class="text-4xl font-bold mb-4">Hi 👋, Hilan Here! </h1>
+        <Prose>
+          <div class="text-lg">
+            <p>I'm a 23-year-old cybersecurity student, eager to use my academic knowledge to make a difference in the real world.</p>
+            <p>I am proficient in C and Rust, I have an affinity for building new and secure network architecture from the ground up</p>  
           </div>
-        </div>
+        </Prose>
       </div>
-    </section>
-  </main>
+      <Image src={Ava} alt="Hilan Meyran" width={300} loading="eager" class="rounded-3xl rotate-3 mx-4 md:mx-0"/>
+		</div>
+		<main>
+      <!-- <div class='mt-6 mb-12'>
+        <div class="flex justify-between gap-2 border-b mb-1 dark:border-b-zinc-700">
+          <h2 class="text-lg font-bold mb-3">Recent Posts</h2>
+          <a href="/posts/" class="inline-block py-2 underline light:text-zinc-950">All posts &raquo;</a>
+        </div>
+        <div>
+          {
+            posts.map((post: BlogPost) => (
+              <PostItem post={post} />
+            ))
+          }      
+        </div>
+        <div class="text-right">
+        </div>
+      </div> -->
+      <div>
+        <div class="flex justify-between gap-2 mb-1">
+          <h2 class="text-lg font-bold mb-3">My Projects</h2>
+          <a href="/projects/" class="inline-block py-2 underline light:text-zinc-950">All projects &raquo;</a>
+        </div>
+        <ProjectList projects={top6Projects}/>
+      </div>
+		</main>
+	</div>
 </BaseLayout>
-
-<style>
-  span.animation {
-    display: inline-flex;
-    animation: infinite 3s linear wave;
-    transform-origin: 70% 70%; /* Pivot around the bottom-left palm */
-  }
-
-  @keyframes wave {
-    0% {
-      transform: rotate(0deg);
-    }
-    10% {
-      transform: rotate(14deg);
-    } /* The following five values can be played with to make the waving more or less extreme */
-    20% {
-      transform: rotate(-8deg);
-    }
-    30% {
-      transform: rotate(14deg);
-    }
-    40% {
-      transform: rotate(-4deg);
-    }
-    50% {
-      transform: rotate(10deg);
-    }
-    60% {
-      transform: rotate(0deg);
-    } /* Reset for the last half to pause */
-    100% {
-      transform: rotate(0deg);
-    }
-  }
-</style>
